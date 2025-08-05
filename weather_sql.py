@@ -7,7 +7,8 @@ CREATE TABLE wind(
     time_id INTEGER,
     location_id INTEGER,
     FOREIGN KEY (time_id) REFERENCES logging_time(id),
-    FOREIGN KEY (location_id) REFERENCES location(id)
+    FOREIGN KEY (location_id) REFERENCES location(id),
+    UNIQUE(time_id,location_id)
 );
 """
 
@@ -17,7 +18,8 @@ CREATE TABLE temp(
     time_id INTEGER,
     location_id INTEGER,
     FOREIGN KEY (time_id) REFERENCES logging_time(id),
-    FOREIGN KEY (location_id) REFERENCES location(id)
+    FOREIGN KEY (location_id) REFERENCES location(id),
+    UNIQUE(time_id,location_id)
 );
 """
 
@@ -29,7 +31,8 @@ CREATE TABLE rain(
     time_id INTEGER,
     location_id INTEGER,
     FOREIGN KEY (time_id) REFERENCES logging_time(id),
-    FOREIGN KEY (location_id) REFERENCES location(id)
+    FOREIGN KEY (location_id) REFERENCES location(id),
+    UNIQUE(time_id,location_id)
 );
 """
 
@@ -47,4 +50,11 @@ CREATE TABLE logging_time(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time DATETIME
 );
+"""
+
+insert_table_location = """
+INSERT OR IGNORE INTO  location (nx,ny) VALUES (?,?);
+"""
+insert_table_loggin_time = """
+INSERT OR IGNORE INTO logging_time (time) VALUES (?);
 """

@@ -12,6 +12,7 @@ now = datetime.datetime.now()
 
     # %H%M%S
 date_str = now.strftime('%Y%m%d')
+time_str = now.strftime('%H') + '00'
 print(date_str)
 
 # url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst"
@@ -35,15 +36,16 @@ params = {
     "pageNo": "1",
     "dataType": "JSON",
     "base_date": date_str,             # 오늘 날짜
-    "base_time": "0600",                 # 반드시 정시로 설정 (예: 0600, 1500 등)
+    "base_time": time_str,                 # 반드시 정시로 설정 (예: 0600, 1500 등)
     "nx": "55",
     "ny": "127"
 }
-def print_date_wether():
+def get_wether_data():
     response = requests.get(url,params=params)
     data = response.json()
     records = data['response']['body']['items']['item']
 
-    for record in records:
-        print(f'{record['category']}{record['obsrValue']}')
-    print(response.content)
+    return records
+    # for record in records:
+    #     print(f'{record['category']}{record['obsrValue']}')
+    # print(response.content)
